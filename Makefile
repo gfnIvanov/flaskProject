@@ -11,11 +11,7 @@ ifneq ($(ENGINE),$(VENV_EXISTS))
 endif
 
 dev: check_venv
-	$(ENGINE) $(PROJECT_DIR)/manage.py runserver
-
-migrate: check_venv
-	$(ENGINE) $(PROJECT_DIR)/manage.py migrate auth \
-	&& $(ENGINE) $(PROJECT_DIR)/manage.py migrate
+	$(ENGINE) $(PROJECT_DIR)/manage.py
 
 install:
 	$(ENGINE_SETUP) install $(req)
