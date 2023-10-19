@@ -1,2 +1,2 @@
-FLASK_APP=app
+FLASK_APP=manage.py
 FLASK_RUN_PORT=5101
