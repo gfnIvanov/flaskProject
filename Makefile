@@ -1,7 +1,10 @@
+include .env
+
 .PHONY: dev install
 
 ENGINE = venv/bin/python
 ENGINE_SETUP = venv/bin/pip
+FLASK = venv/bin/flask
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 VENV_EXISTS := $(shell which venv/bin/python)
 
@@ -11,7 +14,11 @@ ifneq ($(ENGINE),$(VENV_EXISTS))
 endif
 
 dev: check_venv
-	$(ENGINE) $(PROJECT_DIR)/manage.py
+ifeq (dev,$(MODE))
+	$(FLASK) run --debug
+else
+	$(FLASK) run
+endif
 
 install:
 	$(ENGINE_SETUP) install $(req)
