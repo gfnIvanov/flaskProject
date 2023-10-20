@@ -1,9 +1,10 @@
 from app import db
 from sqlalchemy.orm import Mapped, mapped_column
 from datetime import datetime
+from flask_login import UserMixin
 
 
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
     username: Mapped[str] = mapped_column(db.String(50), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(db.String(50), nullable=False)

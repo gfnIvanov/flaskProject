@@ -2,6 +2,7 @@ alembic==1.12.0
 blinker==1.6.3
 click==8.1.7
 Flask==3.0.0
+Flask-Login==0.6.2
 Flask-Migrate==4.0.5
 Flask-SQLAlchemy==3.1.1
 importlib-metadata==6.8.0
@@ -14,5 +15,5 @@ python-dotenv==1.0.0
 python-environ==0.4.54
 SQLAlchemy==2.0.22
 typing_extensions==4.8.0
-Werkzeug==3.0.0
+Werkzeug==2.3.0
 zipp==3.17.0

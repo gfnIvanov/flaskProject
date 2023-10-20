@@ -23,4 +23,7 @@ eggs/
 # Mac OS-specific storage files
 .DS_Store
 
+#service dirs
+logs/*
+
 !.gitkeep
