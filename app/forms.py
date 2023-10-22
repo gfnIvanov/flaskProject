@@ -1,7 +1,7 @@
 from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
-from wtforms.validators import ValidationError, DataRequired, EqualTo, Length
+from wtforms.validators import ValidationError, DataRequired, EqualTo
 from .queries import *
 
 
@@ -11,7 +11,7 @@ class RequiredField(DataRequired):
 
 
 def check_user_exist(form, field: str):
-    user_exist = get_user_with_username(field.data)
+    user_exist = get_user_by_username(field.data)
     if isinstance(user_exist, Exception):
         flash("Ошибка при обращении к базе данных", "error")
     if user_exist:
@@ -31,10 +31,15 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField("Зарегистрироваться")
 
 
+class LoginForm(FlaskForm):
+    username = StringField("Введите логин", validators=[RequiredField()])
+    password = PasswordField("Введите пароль", validators=[RequiredField()])
+    submit = SubmitField("Войти")
+
+
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[RequiredField()])
-    body = TextAreaField("Body", validators=[
-        RequiredField(), Length(min=1, max=140)])
+    body = TextAreaField("Body", validators=[RequiredField()])
     tags = StringField("Tags", validators=[RequiredField()])
 
 

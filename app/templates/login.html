@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="register modal-mask">
+<div class="login modal-mask">
     <div class="modal-container">
-        <form method="post" action="/register" novalidate>
+        <div class="title-lbl">Авторизация</div>
+        <form method="post" novalidate>
             {{ form.hidden_tag() }}
             {% for field in form if field.name not in ['scrf_token', 'submit'] %}
                 {{ field(placeholder=field.label.text) }}

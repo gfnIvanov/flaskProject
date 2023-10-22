@@ -26,11 +26,18 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    user_data = {}
-    result = add_user(user_data)
-    if isinstance(result, Exception):
-        error = result
-    return error
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = get_user_by_username(form.username.data)
+        if isinstance(user, Exception):
+            flash("Ошибка при обращении к базе данных", "error")
+            return redirect(url_for("login"))
+        if user is None or not user.check_password(form.password.data):
+            flash("Логин или пароль указаны некорректно", "error")
+            return redirect(url_for("login"))
+        login_user(user)
+        return redirect(url_for("index"))
+    return render_template("login.html", form=form)
 
 
 @app.route("/post/add", methods=["GET", "POST"])
