@@ -19,6 +19,7 @@ class RegistrationForm(FlaskForm):
                                      validators=[RequiredField(), EqualFields('password')])
     firstname = StringField('Firstname', validators=[RequiredField()])
     lastname = StringField('Lastname', validators=[RequiredField()])
+    submit = SubmitField('Sign In')
 
 
 class PostForm(FlaskForm):
@@ -26,3 +27,4 @@ class PostForm(FlaskForm):
     body = TextAreaField('Body', validators=[
         RequiredField(), Length(min=1, max=140)])
     tags = StringField('Tags', validators=[RequiredField()])
+

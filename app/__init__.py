@@ -1,4 +1,3 @@
-import logging
 from .config import DevConfig
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy

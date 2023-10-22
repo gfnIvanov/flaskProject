@@ -6,7 +6,7 @@ import flask_login
 from app import db
 from app import models
 from werkzeug.security import generate_password_hash
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError, NoResultFound
 
 logger = logging.getLogger(__name__)
 
@@ -42,3 +42,16 @@ def add_post(post_data: models.Posts) -> Union[SQLAlchemyError, None]:
     except SQLAlchemyError as err:
         logger.error(err)
         return err
+
+
+def get_user_with_username(username: str):
+    try:
+        return db.session.execute(
+            db.select(models.Users).filter_by(username=username)
+        ).scalar_one()
+    except NoResultFound:
+        return None
+    except SQLAlchemyError as err:
+        logger.error(err)
+        return err
+
