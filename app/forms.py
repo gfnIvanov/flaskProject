@@ -19,3 +19,4 @@ class RegistrationForm(FlaskForm):
                                      validators=[RequiredField(), EqualFields('password')])
     firstname = StringField('Firstname', validators=[RequiredField()])
     lastname = StringField('Lastname', validators=[RequiredField()])
+    submit = SubmitField('Sign In')
