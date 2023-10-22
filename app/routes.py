@@ -21,3 +21,12 @@ def login():
     if isinstance(result, Exception):
         error = result
         return
+
+
+@app.route('/post/add', methods=['GET', 'POST'])
+def add_post():
+    post_data = {}
+    result = add_post(post_data)
+    if isinstance(result, Exception):
+        error = result
+        return error
