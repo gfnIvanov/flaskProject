@@ -1,28 +1,40 @@
+from flask import flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
-from app import models
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms.validators import ValidationError, DataRequired, EqualTo, Length
+from .queries import *
 
 
 class RequiredField(DataRequired):
-    message = 'Поле обязательно для заполнения'
+    def __init__(self):
+        self.message = "Поле обязательно для заполнения"
 
 
-class EqualFields(EqualTo):
-    message = 'Пароли не совпадают'
+def check_user_exist(form, field: str):
+    user_exist = get_user_with_username(field.data)
+    if isinstance(user_exist, Exception):
+        flash("Ошибка при обращении к базе данных", "error")
+    if user_exist:
+        raise ValidationError('Пользователь с указанным логином уже есть в базе', 'user_exist')
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[RequiredField()])
-    password = PasswordField('Password', validators=[RequiredField()])
-    password_confirm = PasswordField('Password confirm',
-                                     validators=[RequiredField(), EqualFields('password')])
-    firstname = StringField('Firstname', validators=[RequiredField()])
-    lastname = StringField('Lastname', validators=[RequiredField()])
+    username = StringField("Введите логин", validators=[RequiredField(), check_user_exist])
+    password = PasswordField("Введите пароль", validators=[RequiredField()])
+    password_confirm = PasswordField("Повторите пароль",
+                                     validators=[
+                                        RequiredField(),
+                                        EqualTo(fieldname="password", message="Пароли не совпадают")
+                                    ])
+    firstname = StringField("Введите имя", validators=[RequiredField()])
+    lastname = StringField("Введите фамилию", validators=[RequiredField()])
+    submit = SubmitField("Зарегистрироваться")
 
 
 class PostForm(FlaskForm):
-    title = StringField('Title', validators=[RequiredField()])
-    body = TextAreaField('Body', validators=[
+    title = StringField("Title", validators=[RequiredField()])
+    body = TextAreaField("Body", validators=[
         RequiredField(), Length(min=1, max=140)])
-    tags = StringField('Tags', validators=[RequiredField()])
+    tags = StringField("Tags", validators=[RequiredField()])
+
+
