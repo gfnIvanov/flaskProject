@@ -7,7 +7,7 @@ from flask_login import UserMixin
 class Users(UserMixin, db.Model):
     id: Mapped[int] = mapped_column(db.Integer, primary_key=True)
     username: Mapped[str] = mapped_column(db.String(50), unique=True, nullable=False)
-    password: Mapped[str] = mapped_column(db.String(50), nullable=False)
+    password: Mapped[str] = mapped_column(db.String(500), nullable=False)
     firstname: Mapped[str] = mapped_column(db.String(100), nullable=False)
     lastname: Mapped[str] = mapped_column(db.String(100), nullable=False)
 
