@@ -1,6 +1,8 @@
 from app import app
-from flask import render_template
-from queries import *
+from flask import render_template, request, redirect
+from .queries import *
+from .models import Posts
+from .forms import *
 
 
 @app.route('/')
@@ -25,8 +27,10 @@ def login():
 
 @app.route('/post/add', methods=['GET', 'POST'])
 def add_post():
-    post_data = {}
-    result = add_post(post_data)
-    if isinstance(result, Exception):
-        error = result
-        return error
+    if request.method == 'POST':
+        post_data = PostForm(request.form)
+        result = add_post(post_data)
+        if isinstance(result, Exception):
+            error = result
+            return error
+    return render_template('add_post.html')
