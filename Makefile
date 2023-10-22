@@ -1,4 +1,5 @@
 include .env
+include .flaskenv
 
 .PHONY: run install
 
@@ -15,6 +16,7 @@ endif
 
 # run app
 run: check_venv
+	@echo ">>> App running on port" $(FLASK_RUN_PORT)
 ifeq (dev,$(MODE))
 	$(FLASK) run --debug
 else
