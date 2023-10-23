@@ -5,7 +5,6 @@ from app import db
 from app import models
 from sqlalchemy.exc import SQLAlchemyError, NoResultFound
 
-
 logger = logging.getLogger(__name__)
 
 std_return = Union[SQLAlchemyError, None]
@@ -34,8 +33,14 @@ def add_post(post_data: models.Posts) -> std_return:
 
     post.title = post_data["title"]
     post.body = post_data["body"]
+    print(current_user)
+    print(current_user.get_id())
     post.author = current_user.get_id()
     post.tags = post_data["tags"]
+
+    print(post.tags)
+    print(post.title)
+    print(post.body)
 
     try:
         db.session.add(post)
@@ -58,6 +63,18 @@ def edit_post(post_data: models.Posts) -> std_return:
         db.session.commit()
     except SQLAlchemyError as err:
         db.session.rollback()
+        logger.error(err)
+        return err
+
+
+def delete_post(post_data: models.Posts) -> std_return:
+    try:
+        post = get_post_by_id(post_data["id"])
+        if post is None:
+            raise SQLAlchemyError("Статья с указанным идентификатором не найдена")
+        db.session.delete(post)
+        db.session.commit()
+    except SQLAlchemyError as err:
         logger.error(err)
         return err
 
@@ -94,4 +111,3 @@ def get_user_by_username(username: str) -> Union[models.Users, std_return]:
     except SQLAlchemyError as err:
         logger.error(err)
         return err
-
