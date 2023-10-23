@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static',filename='images/logo.svg') }}" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}" />
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/logo.svg') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 </head>
 <body>
-Test
-{#    {% include "modal/register.html" %}#}
-{#    {% include "modal/login.html" %}#}
     <div class="main">
         {% include "components/header.html" %}
+        {% include "modals/register.html" %}
+        {% include "modals/login.html" %}
         <div class="content">
-            {% block content %}{% endblock %}
+            {% block content %}
+            {% endblock %}
         </div>
         {% include "components/footer.html" %}
     </div>

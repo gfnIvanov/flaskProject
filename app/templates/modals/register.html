@@ -1,0 +1,27 @@
+{% if show_register %}
+<div class="register modal-mask">
+    <div class="modal-container">
+        <div style="text-align: right">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/close.svg') }}" style="cursor: pointer" />
+            </a>
+        </div>
+        <div class="title-lbl">Регистрация</div>
+        <form method="post" novalidate>
+            {{ form.hidden_tag() }}
+            {% for field in form if field.name not in ['scrf_token', 'submit'] %}
+                {{ field(placeholder=field.label.text) }}
+                {% for err in field.errors %}
+                    <span class="err-msg">{{ err }}</span>
+                {% endfor %}
+            {% endfor %}
+            {% with messages = get_flashed_messages(category_filter='error') %}
+                {% for message in messages %}
+                    <span class="err-block err-msg">{{ message }}</span>
+                {% endfor %}
+            {% endwith %}
+            {{ form.submit(class="form-btn") }}
+        </form>
+    </div>
+</div>
+{% endif %}

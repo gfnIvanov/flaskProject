@@ -1,20 +1,42 @@
-.PHONY: dev install
+include .env
+include .flaskenv
 
-ENGINE = venv/bin/python
-ENGINE_SETUP = venv/bin/pip
+.PHONY: run install
+
+PYTHON = venv/bin/python
+PIP = venv/bin/pip
+FLASK = venv/bin/flask
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 VENV_EXISTS := $(shell which venv/bin/python)
 
 check_venv:
-ifneq ($(ENGINE),$(VENV_EXISTS))
+ifneq ($(PYTHON),$(VENV_EXISTS))
 	$(error Virtualenv is not created)
 endif
 
-dev: check_venv
-	$(ENGINE) $(PROJECT_DIR)/manage.py
+# run app
+run: check_venv
+ifeq (dev,$(MODE))
+	@echo ">>> App running on http://127.0.0.1:"$(FLASK_RUN_PORT)
+	$(FLASK) run --debug
+else
+	$(FLASK) run
+endif
 
+# database commands
+create_tables: check_venv
+	$(FLASK) create_tables
+
+migrate: check_venv
+ifeq (,$(msg))
+	$(FLASK) db migrate && $(FLASK) db upgrade
+else
+	$(FLASK) db migrate -m $(msg) && $(FLASK) db upgrade
+endif
+
+# dependency control
 install:
-	$(ENGINE_SETUP) install $(req)
+	$(PIP) install $(req)
 
 req_in_file:
-	$(ENGINE_SETUP) freeze > requirements.txt
+	$(PIP) freeze > requirements.txt

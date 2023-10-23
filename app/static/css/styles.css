@@ -133,8 +133,15 @@ select {
     cursor: pointer;
 }
 
+.err-block {
+    width: 98%;
+    margin-top: 8px;
+    padding: 3px;
+    background: bisque;
+    text-align: center;
+}
+
 .err-msg {
-    width: 100%;
     display: inline-block;
     color: firebrick;
     font-size: 11px;
@@ -213,4 +220,11 @@ select {
     width: 100%;
     margin-top: 30px;
     text-align: center;
+}
+
+.title-lbl {
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
+    border-bottom: 1px solid gainsboro;
 }
