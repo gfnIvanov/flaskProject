@@ -6,9 +6,8 @@ from .forms import *
 
 
 @app.route("/")
-@app.route("/index")
 def index():
-    return render_template("base.html")
+    return render_template("index.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -21,7 +20,7 @@ def register():
             return redirect(url_for("register"))
         login_user(user)
         return redirect(url_for("index"))
-    return render_template("models/register.html", form=form)
+    return render_template("index.html", form=form, show_register=True)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -37,7 +36,7 @@ def login():
             return redirect(url_for("login"))
         login_user(user)
         return redirect(url_for("index"))
-    return render_template("models/login.html", form=form)
+    return render_template("index.html", form=form, show_login=True)
 
 
 @app.route("/post/<int:id>/watch", methods=["GET"])
@@ -54,11 +53,8 @@ def watch_post():
 @app.route("/post/add", methods=["GET", "POST"])
 def add_new_post():
     form = PostForm()
-    print(form.title)
     if form.validate_on_submit():
-        print("here")
         post = add_post(form.data)
-        print(post)
 
         if isinstance(post, Exception):
             flash("Ошибка при обращении к базе данных", "error")

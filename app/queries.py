@@ -33,14 +33,8 @@ def add_post(post_data: models.Posts) -> std_return:
 
     post.title = post_data["title"]
     post.body = post_data["body"]
-    print(current_user)
-    print(current_user.get_id())
     post.author = current_user.get_id()
     post.tags = post_data["tags"]
-
-    print(post.tags)
-    print(post.title)
-    print(post.body)
 
     try:
         db.session.add(post)
