@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, redirect, url_for
 from flask_login import login_user
 from .queries import *
 from .forms import *
@@ -7,7 +7,7 @@ from .forms import *
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", active_page='index')
 
 
 @app.route("/register", methods=["GET", "POST"])
