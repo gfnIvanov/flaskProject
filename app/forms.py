@@ -38,8 +38,10 @@ class LoginForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    title = StringField("Title", validators=[RequiredField()])
-    body = TextAreaField("Body", validators=[RequiredField()])
-    tags = StringField("Tags", validators=[RequiredField()])
+    title = StringField("Введите название", validators=[RequiredField()])
+    body = TextAreaField("Введите текст", validators=[RequiredField()])
+    tags = StringField("Введите теги", validators=[RequiredField()])
+    submit = SubmitField("Добавить пост")
+
 
 

@@ -21,7 +21,7 @@ def register():
             return redirect(url_for("register"))
         login_user(user)
         return redirect(url_for("index"))
-    return render_template("register.html", form=form)
+    return render_template("models/register.html", form=form)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -37,15 +37,50 @@ def login():
             return redirect(url_for("login"))
         login_user(user)
         return redirect(url_for("index"))
-    return render_template("login.html", form=form)
+    return render_template("models/login.html", form=form)
+
+
+@app.route("/post/<int:id>/watch", methods=["GET"])
+def watch_post():
+    post = get_post_by_id("")  # TODO разобраться как получать id поста
+    if isinstance(post, Exception):
+        flash("Ошибка при обращении к базе данных", "error")
+        return redirect(url_for("index"))
+    if post is None:
+        flash("Пост не найден", "error")
+        return redirect(url_for("index"))
 
 
 @app.route("/post/add", methods=["GET", "POST"])
-def add_post():
-    if request.method == "POST":
-        post_data = PostForm(request.form)
-        result = add_post(post_data)
-        if isinstance(result, Exception):
-            error = result
-            return error
-    return render_template("add_post.html")
+def add_new_post():
+    form = PostForm()
+    print(form.title)
+    if form.validate_on_submit():
+        print("here")
+        post = add_post(form.data)
+        print(post)
+
+        if isinstance(post, Exception):
+            flash("Ошибка при обращении к базе данных", "error")
+            return redirect(url_for("add_new_post"))
+    return render_template("add_post.html", form=form)
+
+
+@app.route("/post/<int:post_id>/edit", methods=["GET", "POST"])
+def edit_post(post_id: int):
+    form = PostForm()
+    if form.validate_on_submit():
+        post = edit_post(post_id)
+        if isinstance(post, Exception):
+            flash("Ошибка при обращении к базе данных", "error")
+            return redirect(url_for("edit_post"))
+    return render_template("edit_post.html", form=form)
+
+
+@app.route("/post/<int:post_id>/delete", methods=["POST"])
+def remove_post(post_id: int):
+    post = delete_post(post_id) # TODO разобраться от куда брать post_id
+    if isinstance(post, Exception):
+        flash("Ошибка при обращении к базе данных", "error")
+        return redirect(url_for("index"))
+    return render_template("edit_post.html")
