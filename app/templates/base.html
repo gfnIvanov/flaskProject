@@ -5,20 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static',filename='images/logo.svg') }}" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}" />
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/logo.svg') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 </head>
 <body>
     <div class="main">
         {% include "components/header.html" %}
-            <div class="content">
-                {% block content %}
-                    <div class="index-page">
-                        <div><h2 id="main-page-title">Приветствие</h2></div>
-                        <div id="main-page-content" style="text-align: justify">Вы находитесь на главной странице тематического блога, посвященного выпускной квалификационной работе на тему "Применение возможностей машинного обучения в здравоохранении". Для получения доступа к контенту сайта необходимо зарегистрироваться или автризоваться, если регистрация уже была пройдена.</div>
-                    </div>
-                {% endblock %}
-            </div>
+        {% include "modals/register.html" %}
+        {% include "modals/login.html" %}
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
         {% include "components/footer.html" %}
     </div>
 </body>

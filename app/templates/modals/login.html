@@ -1,8 +1,11 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% if show_login %}
 <div class="login modal-mask">
     <div class="modal-container">
+        <div style="text-align: right">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/close.svg') }}" style="cursor: pointer" />
+            </a>
+        </div>
         <div class="title-lbl">Авторизация</div>
         <form method="post" novalidate>
             {{ form.hidden_tag() }}
@@ -21,4 +24,4 @@
         </form>
     </div>
 </div>
-{% endblock %}
+{% endif %}
