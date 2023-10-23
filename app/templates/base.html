@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}" />
 </head>
 <body>
-Test
-{#    {% include "modal/register.html" %}#}
-{#    {% include "modal/login.html" %}#}
     <div class="main">
         {% include "components/header.html" %}
-        <div class="content">
-            {% block content %}{% endblock %}
-        </div>
+            <div class="content">
+                {% block content %}
+                    <div class="index-page">
+                        <div><h2 id="main-page-title">Приветствие</h2></div>
+                        <div id="main-page-content" style="text-align: justify">Вы находитесь на главной странице тематического блога, посвященного выпускной квалификационной работе на тему "Применение возможностей машинного обучения в здравоохранении". Для получения доступа к контенту сайта необходимо зарегистрироваться или автризоваться, если регистрация уже была пройдена.</div>
+                    </div>
+                {% endblock %}
+            </div>
         {% include "components/footer.html" %}
     </div>
 </body>

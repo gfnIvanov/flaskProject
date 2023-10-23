@@ -1,0 +1,15 @@
+<div class="footer">
+{#    <div style="margin: 10px 50px 0px">#}
+{#        <a href="https://github.com/gfnIvanov/djangoProject" target="_blank">#}
+{#            <img src="{% static 'images/github.svg' %}" />#}
+{#        </a>#}
+{#    </div>#}
+    <div style="margin-right: 50px">
+        <div id="active_page" style="display: none">{{ active_page }}</div>
+        <span id="language-label" style="margin-right: 10px">Язык страницы:</span>
+        <select id="lang-select" onchange="translatePage(this)">
+            <option value="ru">Русский</option>
+            <option value="en">Английский</option>
+        </select>
+    </div>
+</div>

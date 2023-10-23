@@ -16,8 +16,8 @@ endif
 
 # run app
 run: check_venv
-	@echo ">>> App running on port" $(FLASK_RUN_PORT)
 ifeq (dev,$(MODE))
+	@echo ">>> App running on http://127.0.0.1:"$(FLASK_RUN_PORT)
 	$(FLASK) run --debug
 else
 	$(FLASK) run
