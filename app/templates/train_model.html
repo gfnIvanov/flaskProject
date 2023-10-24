@@ -4,11 +4,13 @@
 <div class="practice-page">
     <div><h2 id="main-page-title">Процесс обучения...</h2></div>
     <div>
-        <div id="messages" style="display:none">{{ messages }}</div>
+        <div id="logs" style="display:none">{{ logs }}</div>
         <textarea id="train-process" type="text" rows="7"></textarea>
     </div>
     <div class="use-button-block" style="display:none">
-        <a class="use-button" href="">Использовать модель</a>
+        <a href="{{ url_for('use_model') }}">
+            <input class="form-btn" style="width:180px;" value="Использовать модель" type="submit"/>
+        </a>
     </div>
 </div>
 {% endblock %}

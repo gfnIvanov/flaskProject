@@ -2,7 +2,7 @@ from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, EqualTo
-from flask_wtf.file import FileField
+from flask_wtf.file import FileField, FileAllowed
 from .queries import get_user_by_username
 
 
@@ -46,6 +46,9 @@ class PostForm(FlaskForm):
 
 
 class FileForm(FlaskForm):
-    file = FileField(validators=[RequiredField(message="Требуется выбрать файл")])
+    file = FileField(validators=[
+        RequiredField(message="Требуется выбрать файл"),
+        FileAllowed(['csv'], 'Принимаются только csv-файлы')
+    ])
     submit = SubmitField("Отправить")
 

@@ -11,7 +11,9 @@
     <div><h3 id="main-page-title">Полученный результат</h3></div>
     <div>{{ prediction }}</div>
     <div class="use-button-block">
-        <a class="use-button" href="{% url 'use_model' %}">Обновить</a>
+        <a href="{{ url_for('use_model') }}">
+            <input class="form-btn" style="width:160px;" value="Обновить" type="submit"/>
+        </a>
     </div>
 </div>
 {% endblock %}

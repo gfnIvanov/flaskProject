@@ -1,10 +1,11 @@
 import os
-from typing import Dict
+from typing import Dict, List
 from app import app
 from flask_login import current_user
 from flask import render_template, redirect, url_for
 from flask_login import login_user, login_required, logout_user
 from .config import BASE_DIR
+from .ML import model
 from .queries import *
 from .forms import *
 
@@ -98,22 +99,41 @@ def remove_post(post_id: int):
 def practice():
     form = FileForm()
     model_exist = False
+    logs = []
     if form.validate_on_submit():
         file = form.file.data
         file.save(os.path.join(BASE_DIR, "temp/data.csv"))
         return redirect(url_for("train_model"))
     if os.path.exists(os.path.join(BASE_DIR, 'app/ML/log.txt')):
         model_exist = True
-        logs = []
-        with open(os.path.join(BASE_DIR, 'app/ML/log.txt'), 'r') as log_file:
-            for str in log_file.readlines():
-                logs.append(str)
+        logs = _get_logs(full=False)
     return render_template("practice.html",
                            form=form,
                            active_page="practice",
                            user=_get_user_data(),
                            model_exist=model_exist,
                            logs=logs)
+
+
+@app.route("/train-model", methods=["GET"])
+def train_model():
+    model.train()
+    logs=','.join(_get_logs())
+    return render_template("train_model.html",
+                           active_page="train_model",
+                           user=_get_user_data(),
+                           logs=logs)
+
+
+@app.route("/use-model", methods=["GET"])
+def use_model():
+    target, test_data, prediction = model.use()
+    return render_template("use_model.html",
+                           active_page="use_model",
+                           user=_get_user_data(),
+                           target=target,
+                           test_data=test_data,
+                           prediction=prediction)
 
 
 @app.route("/logout", methods=["GET"])
@@ -131,3 +151,15 @@ def _get_user_data() -> Dict[str, str]:
         firstname = user.firstname
         lastname = user.lastname[0] + '.'
     return {"firstname": firstname, "lastname": lastname}
+
+
+def _get_logs(full: bool = True) -> List[str]:
+    logs = []
+    with open(os.path.join(BASE_DIR, 'app/ML/log.txt'), 'r') as log_file:
+        if full:
+            lines = log_file.readlines()
+        else:
+            lines = log_file.readlines()[:-1]
+        for str in lines:
+            logs.append(str)
+    return logs
