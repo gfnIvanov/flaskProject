@@ -1,31 +1,31 @@
 <div class="header">
     <div class="btn-block" style="width: 70%">
-        <a class="menu-btn" href="">
+        <a class="menu-btn" href="{{url_for('index')}}">
             <div id="main-page-btn" class="{% if active_page == 'index' %} active-page {% endif %}" style="margin-left: 50px">Главная</div>
         </a>
-        {% if is_auth %}
-        <a class="menu-btn" href="">
+        {% if current_user.is_authenticated %}
+        <a class="menu-btn" href="{{url_for('posts')}}">
             <div id="articles-page-btn" class="{% if active_page == 'posts' %} active-page {% endif %}">Статьи</div>
         </a>
-        <a class="menu-btn" href="">
-            <div id="practice-page-btn" class="">Практика</div>
-        </a>git
+        <a class="menu-btn" href="{{url_for('practice')}}">
+            <div id="practice-page-btn" class="{% if active_page in 'practice,upload_file,train_model,use_model' %} active-page {% endif %}">Практика</div>
+        </a>
         {% endif %}
     </div>
     <div class="btn-block" style="width: 30%">
-        {% if is_auth %}
+        {% if current_user.is_authenticated %}
         <div class="menu-btn btn-border" style="cursor:default">{{ firstname }} {{ surname }}</div>
         {% else %}
-        <a class="menu-btn btn-border" href="">
+        <a class="menu-btn btn-border" href="{{url_for('register')}}">
             <div id="reg-btn">Регистрация</div>
         </a>
         {% endif %}
-        {% if is_auth %}
-        <a class="menu-btn" href="">
+        {% if current_user.is_authenticated %}
+        <a class="menu-btn" href="{{url_for('logout')}}">
             <div id="log-out-btn">Выход</div>
         </a>
         {% else %}
-        <a class="menu-btn" href="">
+        <a class="menu-btn" href="{{url_for('login')}}">
             <div id="log-in-btn">Вход</div>
         </a>
         {% endif %}
