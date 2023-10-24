@@ -45,6 +45,11 @@ def login():
     return render_template("index.html", form=form, show_login=True)
 
 
+@app.route("/posts", methods=["GET"])
+def posts():
+    return redirect(url_for("index"))
+
+
 @app.route("/post/<int:id>/watch", methods=["GET"])
 def watch_post():
     post = get_post_by_id("")  # TODO разобраться как получать id поста
