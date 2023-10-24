@@ -138,6 +138,7 @@ def practice():
 
 
 @app.route("/train-model", methods=["GET"])
+@login_required
 def train_model():
     model.train()
     logs = ','.join(_get_logs())
@@ -148,6 +149,7 @@ def train_model():
 
 
 @app.route("/use-model", methods=["GET"])
+@login_required
 def use_model():
     target, test_data, prediction = model.use()
     return render_template("use_model.html",

@@ -16,13 +16,14 @@
              <img src="{{ url_for('static', filename='images/close.svg') }}"/>
          </a>
     </div>
-
-    <a class="menu-btn burger" id="burger">
-        <img src="{{ url_for('static', filename='images/burger.svg') }}"/>
-    </a>
+    <div style="width: 50%">
+        <a class="burger" id="burger" style="width: 42px">
+            <img src="{{ url_for('static', filename='images/burger.svg') }}"/>
+        </a>
+    </div>
     <div class="btn-block" style="width: 30%">
         {% if current_user.is_authenticated %}
-        <div class="menu-btn btn-border" style="cursor:default">{{ user.firstname }} {{ user.lastname }}</div>
+        <div class="menu-btn btn-border name-field">{{ user.firstname }} {{ user.lastname }}</div>
         {% else %}
         <a class="menu-btn btn-border" href="{{ url_for('register') }}">
             <div id="reg-btn">Регистрация</div>
