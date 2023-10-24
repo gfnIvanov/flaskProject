@@ -1,7 +1,8 @@
 <div class="header">
-    <div class="btn-block" style="width: 70%">
+    <div id="backdrop" class="backdrop"></div>
+    <div class="btn-block nav" id="nav" style="width: 70%">
         <a class="menu-btn" href="{{ url_for('index') }}">
-            <div id="main-page-btn" class="{% if active_page == 'index' %} active-page {% endif %}" style="margin-left: 50px">Главная</div>
+            <div id="main-page-btn" class="{% if active_page == 'index' %} active-page {% endif %}">Главная</div>
         </a>
         {% if current_user.is_authenticated %}
         <a class="menu-btn" href="{{ url_for('posts') }}">
@@ -11,7 +12,14 @@
             <div id="practice-page-btn" class="{% if active_page in 'practice,upload_file,train_model,use_model' %} active-page {% endif %}">Практика</div>
         </a>
         {% endif %}
+         <a class="menu-btn btn-close" id="btn-close">
+             <img src="{{ url_for('static', filename='images/close.svg') }}"/>
+         </a>
     </div>
+
+    <a class="menu-btn burger" id="burger">
+        <img src="{{ url_for('static', filename='images/burger.svg') }}"/>
+    </a>
     <div class="btn-block" style="width: 30%">
         {% if current_user.is_authenticated %}
         <div class="menu-btn btn-border" style="cursor:default">{{ user.firstname }} {{ user.lastname }}</div>
