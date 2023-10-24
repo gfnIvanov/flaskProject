@@ -14,6 +14,7 @@ body {
     bottom: 50px;
     display: flex;
     flex-direction: column;
+    width: 100%;
     height: 100%;
 }
 
@@ -31,7 +32,6 @@ body {
 a {
     outline: none;
     text-decoration: none;
-    color: #FFFFFF;
     transition: color 0.3s;
 }
 
@@ -60,6 +60,7 @@ a:hover {
     padding: 10px;
     font-size: 20px;
     cursor: pointer;
+    color: #FFFFFF;
 }
 
 .active-page {
