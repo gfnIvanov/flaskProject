@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="practice-page">
+    <div><h2>Использование модели регрессии</h2></div>
+    <div>
+        <form enctype="multipart/form-data" method="post">
+            {{ form.hidden_tag() }}
+            <div class="input-file">
+                <div>{{ form.file() }}</div>
+                <div>{{ form.submit(class="form-btn") }}</div>
+            </div>
+            {% for err in form.file.errors %}
+            <span class="err-msg ta-c" style="width:50%">{{ err }}</span>
+            {% endfor %}
+        </form>
+    </div>
+</div>
+{% endblock %}

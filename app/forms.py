@@ -2,12 +2,13 @@ from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, EqualTo
+from flask_wtf.file import FileField
 from .queries import get_user_by_username
 
 
 class RequiredField(DataRequired):
-    def __init__(self):
-        self.message = "Поле обязательно для заполнения"
+    def __init__(self, message="Поле обязательно для заполнения"):
+        self.message = message
 
 
 def check_user_exist(form, field: str):
@@ -15,7 +16,7 @@ def check_user_exist(form, field: str):
     if isinstance(user_exist, Exception):
         flash("Ошибка при обращении к базе данных", "error")
     if user_exist:
-        raise ValidationError('Пользователь с указанным логином уже есть в базе', 'user_exist')
+        raise ValidationError("Пользователь с указанным логином уже есть в базе", "user_exist")
 
 
 class RegistrationForm(FlaskForm):
@@ -44,4 +45,7 @@ class PostForm(FlaskForm):
     submit = SubmitField("Добавить пост")
 
 
+class FileForm(FlaskForm):
+    file = FileField(validators=[RequiredField(message="Требуется выбрать файл")])
+    submit = SubmitField("Отправить")
 

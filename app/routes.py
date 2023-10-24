@@ -1,13 +1,19 @@
+import os
+from typing import Dict
 from app import app
+from flask_login import current_user
 from flask import render_template, redirect, url_for
-from flask_login import login_user
+from flask_login import login_user, login_required, logout_user
+from .config import BASE_DIR
 from .queries import *
 from .forms import *
 
 
 @app.route("/")
 def index():
-    return render_template("index.html", active_page='index')
+    return render_template("index.html",
+                           active_page='index',
+                           user=_get_user_data())
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -80,3 +86,34 @@ def remove_post(post_id: int):
         flash("Ошибка при обращении к базе данных", "error")
         return redirect(url_for("index"))
     return render_template("edit_post.html")
+
+
+@app.route("/practice", methods=["GET", "POST"])
+@login_required
+def practice():
+    form = FileForm()
+    if form.validate_on_submit():
+        file = form.file.data
+        file.save(os.path.join(BASE_DIR, 'temp/data.csv'))
+        return redirect(url_for("practice"))
+    return render_template("practice.html",
+                           form=form,
+                           active_page='practice',
+                           user=_get_user_data())
+
+
+@app.route("/logout", methods=["GET"])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("index"))
+
+
+def _get_user_data() -> Dict[str, str]:
+    firstname = None
+    lastname = None
+    user = get_user_by_id(current_user.get_id())
+    if user is not None and not isinstance(user, Exception):
+        firstname = user.firstname
+        lastname = user.lastname[0] + '.'
+    return {"firstname": firstname, "lastname": lastname}
