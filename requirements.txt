@@ -16,6 +16,5 @@ python-dotenv==1.0.0
 python-environ==0.4.54
 SQLAlchemy==2.0.22
 typing_extensions==4.8.0
-Werkzeug==2.3.0
 WTForms==3.1.0
 zipp==3.17.0

@@ -14,3 +14,7 @@ def create_tables():
 @login.user_loader
 def load_user(id):
     return models.Users.query.get(int(id))
+
+
+if __name__ == "__main__":
+    app.run()
