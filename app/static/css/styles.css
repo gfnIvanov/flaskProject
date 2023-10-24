@@ -212,6 +212,7 @@ select {
 
 .input-file {
     display: flex;
+    align-items: end;
 }
 
 .input-file div:first-child > input {
@@ -222,6 +223,12 @@ select {
 
 .input-file div:first-child {
     width: 50%;
+}
+
+.input-file span:last-child {
+    width: 96%;
+    border-bottom: 1px solid gainsboro;
+    display: block;
 }
 
 .input-file div:nth-child(2) {
@@ -239,4 +246,8 @@ select {
     padding: 5px;
     font-size: 14px;
     border-bottom: 1px solid gainsboro;
+}
+
+.mt-50 {
+    margin-top: 50px;
 }

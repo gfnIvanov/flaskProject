@@ -2,7 +2,8 @@
 
 {% block content %}
 <div class="practice-page">
-    <div><h2>Использование модели регрессии</h2></div>
+    <div><h2>Модель регрессии</h2></div>
+    <div class="mt-50"><h3>Обучить новую модель</h3></div>
     <div>
         <form enctype="multipart/form-data" method="post">
             {{ form.hidden_tag() }}
@@ -16,10 +17,20 @@
         </form>
     </div>
     {% if model_exist %}
-    <div style="margin-top:50px"><h3>Использовать существующую модель</h3></div>
-    {% for message in logs %}
-    <div>{{ message }}</div>
-    {% endfor %}
+    <div class="mt-50"><h3>Использовать существующую модель</h3></div>
+    <div class="input-file">
+        <div>
+            {% for message in logs %}
+            <span>{{ message }}</span><br>
+            {% endfor %}
+            <span></span>
+        </div>
+        <div>
+            <a href="{{ url_for('use_model') }}">
+                <input class="form-btn" value="Использовать" type="submit"/>
+            </a>
+        </div>
+    </div>
     {% endif %}
 </div>
 {% endblock %}
