@@ -97,14 +97,23 @@ def remove_post(post_id: int):
 @login_required
 def practice():
     form = FileForm()
+    model_exist = False
     if form.validate_on_submit():
         file = form.file.data
-        file.save(os.path.join(BASE_DIR, 'temp/data.csv'))
-        return redirect(url_for("practice"))
+        file.save(os.path.join(BASE_DIR, "temp/data.csv"))
+        return redirect(url_for("train_model"))
+    if os.path.exists(os.path.join(BASE_DIR, 'app/ML/log.txt')):
+        model_exist = True
+        logs = []
+        with open(os.path.join(BASE_DIR, 'app/ML/log.txt'), 'r') as log_file:
+            for str in log_file.readlines():
+                logs.append(str)
     return render_template("practice.html",
                            form=form,
-                           active_page='practice',
-                           user=_get_user_data())
+                           active_page="practice",
+                           user=_get_user_data(),
+                           model_exist=model_exist,
+                           logs=logs)
 
 
 @app.route("/logout", methods=["GET"])
