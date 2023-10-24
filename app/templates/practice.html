@@ -15,5 +15,11 @@
             {% endfor %}
         </form>
     </div>
+    {% if model_exist %}
+    <div style="margin-top:50px"><h3>Использовать существующую модель</h3></div>
+    {% for message in logs %}
+    <div>{{ message }}</div>
+    {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
