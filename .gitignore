@@ -23,7 +23,10 @@ eggs/
 # Mac OS-specific storage files
 .DS_Store
 
-#service dirs
+#service dirs and files
 logs/*
+temp/*
+app/ML/log.txt
+app/ML/XGBModel.dat
 
 !.gitkeep

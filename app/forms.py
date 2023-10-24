@@ -2,7 +2,7 @@ from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, EqualTo
-from .queries import *
+from .queries import get_user_by_username
 
 
 class RequiredField(DataRequired):
@@ -38,8 +38,10 @@ class LoginForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    title = StringField("Title", validators=[RequiredField()])
-    body = TextAreaField("Body", validators=[RequiredField()])
-    tags = StringField("Tags", validators=[RequiredField()])
+    title = StringField("Введите название", validators=[RequiredField()])
+    body = TextAreaField("Введите текст", validators=[RequiredField()])
+    tags = StringField("Введите теги")
+    submit = SubmitField("Добавить пост")
+
 
 

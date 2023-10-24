@@ -9,6 +9,11 @@
         </a>
         <a class="menu-btn" href="{{url_for('practice')}}">
             <div id="practice-page-btn" class="{% if active_page in 'practice,upload_file,train_model,use_model' %} active-page {% endif %}">Практика</div>
+        <a class="menu-btn" href="">
+            <div id="articles-page-btn" class="{% if active_page == 'posts' %} active-page {% endif %}">Статьи</div>
+        </a>
+        <a class="menu-btn" href="">
+            <div id="practice-page-btn" class="">Практика</div>
         </a>
         {% endif %}
     </div>
@@ -17,6 +22,7 @@
         <div class="menu-btn btn-border" style="cursor:default">{{ firstname }} {{ surname }}</div>
         {% else %}
         <a class="menu-btn btn-border" href="{{url_for('register')}}">
+        <a class="menu-btn btn-border" href="{{ url_for('register') }}">
             <div id="reg-btn">Регистрация</div>
         </a>
         {% endif %}
@@ -26,6 +32,11 @@
         </a>
         {% else %}
         <a class="menu-btn" href="{{url_for('login')}}">
+        <a class="menu-btn" href="">
+            <div id="log-out-btn">Выход</div>
+        </a>
+        {% else %}
+        <a class="menu-btn" href="{{ url_for('login') }}">
             <div id="log-in-btn">Вход</div>
         </a>
         {% endif %}

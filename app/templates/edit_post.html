@@ -20,6 +20,22 @@
         <div>
             <input type="submit" class="form-btn" value="Сохранить изменения" style="width:200px">
         </div>
+    <form action="" method='post'>
+        <form method="post" novalidate>
+        {{ form.hidden_tag() }}
+            {% for field in form if field.name not in ['csrf_token', 'submit'] %}
+                {{ field(placeholder=field.label.text) }}
+                {% for err in field.errors %}
+                    <span class="err-msg">{{ err }}</span>
+                {% endfor %}
+            {% endfor %}
+            {% with messages = get_flashed_messages(category_filter='error') %}
+                {% for message in messages %}
+                    <span class="err-block err-msg">{{ message }}</span>
+                {% endfor %}
+            {% endwith %}
+            {{ form.submit(class="form-btn") }}
+    </form>
     </form>
 </div>
 {% endblock content %}
