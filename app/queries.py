@@ -105,3 +105,15 @@ def get_user_by_username(username: str) -> Union[models.Users, std_return]:
     except SQLAlchemyError as err:
         logger.error(err)
         return err
+
+
+def get_user_by_id(id: int) -> Union[models.Users, std_return]:
+    try:
+        return db.session.execute(
+            db.select(models.Users).filter_by(id=id)
+        ).scalar_one()
+    except NoResultFound:
+        return None
+    except SQLAlchemyError as err:
+        logger.error(err)
+        return err
