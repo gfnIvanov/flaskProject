@@ -48,13 +48,7 @@ a:hover {
 .index-background {
     height: 100%;
     background-size: contain;
-}
-
-.background {
-    margin: auto;
-    width: calc(250px + (500 - 250) * ((100vw - 500px) / (1920 - 500)));
-    padding: 20px;
-
+    margin: 50px 0px 0px
 }
 
 .btn-block {
@@ -80,10 +74,9 @@ a:hover {
 }
 
 .content {
-    flex: 1 0 auto;
     position: relative;
-    padding-bottom: 80px;
-    top: 10px;
+    margin-bottom: 120px;
+    overflow: auto;
 }
 
 .footer {
