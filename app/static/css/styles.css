@@ -138,17 +138,19 @@ select {
     margin: auto;
     width: 300px;
     padding: 10px 30px 20px;
-    background-color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+    background-color: #EFF1FA;
+    border-radius: 10px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.33);
     transition: all 0.3s ease;
 }
 
 .form-btn {
     width: 100%;
-    border: 1px solid gray;
+    border: 2px solid rgb(170, 175, 208);
     border-radius: 2px;
     cursor: pointer;
+    color: #666591;
+    font-weight: bold;
 }
 
 .err-block {
@@ -243,6 +245,8 @@ select {
 .title-lbl {
     text-align: center;
     padding: 5px;
-    font-size: 14px;
-    border-bottom: 1px solid gainsboro;
+    font-size: 16px;
+    border-bottom: 1px solid rgb(170, 175, 208);
+    color: #666591;
+    font-weight: bold;
 }
