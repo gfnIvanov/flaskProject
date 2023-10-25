@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% for post in posts %}
+{% for post in posts.items %}
 <div class="posts-block">
     <div class="post-title"><h3><a class="link-btn" href="{{ url_for('watch_post', id=post.id) }}">{{ post.title }}</a></h3></div>
     <div class="pre-view">{{ post.body }}</div>
@@ -11,6 +11,8 @@
     </div>
 </div>
 {% endfor %}
+    {% if posts.has_prev %}<a href="{{ url_for('get_posts', page = posts.prev_num) }}"><< Назад</a>{% else %}<< Назад{% endif %} |
+{% if posts.has_next %}<a href="{{ url_for('get_posts', page = posts.next_num) }}">Вперед >></a>{% else %}Вперед >>{% endif %}
 <div class="add-post-btn-block">
     <a class="add-post-btn" href="{{ url_for('add_new_post') }}" style="width: 200px">Добавить статью</a>
 </div>

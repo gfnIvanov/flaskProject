@@ -78,7 +78,7 @@ def delete_post(post_data: models.Posts) -> std_return:
 
 def get_all_posts():
     try:
-        return db.paginate(db.select(models.Posts).order_by(models.Posts.date_create))
+        return db.paginate(db.select(models.Posts).order_by(models.Posts.date_create), per_page=3)
     except NoResultFound:
         return None
     except SQLAlchemyError as err:
