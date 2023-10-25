@@ -89,7 +89,8 @@ def add_new_post():
             return redirect(url_for("add_new_post"))
     return render_template("add_post.html",
                            form=form,
-                           user=_get_user_data())
+                           user=_get_user_data(),
+                           active_page="add_new_post")
 
 
 @app.route("/post/<int:id>/edit", methods=["GET", "POST"])
