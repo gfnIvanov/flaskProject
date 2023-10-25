@@ -1,7 +1,7 @@
 include .env
 include .flaskenv
 
-.PHONY: run install
+.PHONY: run install start
 
 PYTHON = venv/bin/python
 PIP = venv/bin/pip
@@ -40,3 +40,12 @@ install:
 
 req_in_file:
 	$(PIP) freeze > requirements.txt
+
+
+# Docker
+start:
+	flask create_tables \
+	&& flask db stamp head \
+	&& flask db migrate \
+	&& flask db upgrade \
+	&& flask run
