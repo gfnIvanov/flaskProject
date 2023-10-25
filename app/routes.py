@@ -56,13 +56,15 @@ def get_posts():
     posts = get_all_posts()
     return render_template("posts.html",
                            user=_get_user_data(),
-                           posts=posts)
+                           posts=posts,
+                           active_page="get_posts")
 
 
 @app.route("/post/<int:id>/watch", methods=["GET"])
 @login_required
-def watch_post(post_id: int):
-    post = get_post_by_id(str(post_id))
+def watch_post(id: int):
+    post = get_post_by_id(str(id))
+    user = get_user_by_id(post.author)
     if isinstance(post, Exception):
         flash("Ошибка при обращении к базе данных", "error")
         return redirect(url_for("index"))
@@ -71,7 +73,9 @@ def watch_post(post_id: int):
         return redirect(url_for("index"))
     return render_template("watch_post.html",
                            post=post,
-                           user=_get_user_data())
+                           user=_get_user_data(),
+                           active_page="watch_post",
+                           author=user)
 
 
 @app.route("/post/add", methods=["GET", "POST"])
@@ -85,29 +89,31 @@ def add_new_post():
             return redirect(url_for("add_new_post"))
     return render_template("add_post.html",
                            form=form,
-                           user=_get_user_data())
+                           user=_get_user_data(),
+                           active_page="")
 
 
-@app.route("/post/<int:post_id>/edit", methods=["GET", "POST"])
+@app.route("/post/<int:id>/edit", methods=["GET", "POST"])
 @login_required
-def edit_posts(post_id: int):
+def edit_posts(id: int):
     form = PostForm()
-    post_to_edit = get_post_by_id(str(post_id))
+    post_to_edit = get_post_by_id(str(id))
     if form.validate_on_submit():
-        edited_post = edit_post(post_to_edit)
+        edited_post = edit_post(form.data, id)
         if isinstance(edited_post, Exception):
             flash("Ошибка при обращении к базе данных", "error")
             return redirect(url_for("edit_post"))
     return render_template("edit_post.html",
                            form=form,
                            user=_get_user_data(),
-                           post=post_to_edit)
+                           post=post_to_edit,
+                           active_page="edit_posts")
 
 
-@app.route("/post/<int:post_id>/delete", methods=["POST"])
+@app.route("/post/<int:id>/delete", methods=["POST"])
 @login_required
-def remove_post(post_id: int):
-    post_to_delete = get_post_by_id(str(post_id))
+def remove_post(id: int):
+    post_to_delete = get_post_by_id(str(id))
     deleted_post = delete_post(post_to_delete)
     if isinstance(deleted_post, Exception):
         flash("Ошибка при обращении к базе данных", "error")

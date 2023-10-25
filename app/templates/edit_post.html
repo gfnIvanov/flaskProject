@@ -3,10 +3,11 @@
 {% block content %}
 <div class="posts-block">
     <h3>Редактировать статью:</h3>
-    <form method="post" action="{{ url_for('edit-post',id=post.id) }}" novalidate>
+    <form method="post" action="{{ url_for('edit_posts',id=post.id) }}" novalidate>
         {{ form.hidden_tag() }}
             {% for field in form if field.name not in ['csrf_token', 'submit'] %}
-                {{ field(placeholder=field.label.text) }}
+                {% set column = field.name %}
+                {{ field(placeholder=field.label.text, value=post.column) }}
                 {% for err in field.errors %}
                     <span class="err-msg">{{ err }}</span>
                 {% endfor %}

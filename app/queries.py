@@ -45,15 +45,17 @@ def add_post(post_data: models.Posts) -> std_return:
         return err
 
 
-def edit_post(post_data: models.Posts) -> std_return:
+def edit_post(post_data: models.Posts, id: int) -> std_return:
     try:
-        post = get_post_by_id(post_data["id"])
+        post = get_post_by_id(str(id))
         if post is None:
             raise SQLAlchemyError("Статья с указанным идентификатором не найдена")
         post.title = post_data["title"]
         post.body = post_data["body"]
         post.author = current_user.get_id()
         post.tags = post_data["tags"]
+
+        db.session.add(post)
         db.session.commit()
     except SQLAlchemyError as err:
         db.session.rollback()

@@ -7,7 +7,7 @@
     <div class="pre-view">{{ post.body }}</div>
     <div class="post-info">
         <div>{{ post.date_create }}</div>
-        <div>автор: {{ post.author }}</div>
+        <div>автор: {{ user.firstname + " " + user.lastname }}</div>
     </div>
 </div>
 {% endfor %}
