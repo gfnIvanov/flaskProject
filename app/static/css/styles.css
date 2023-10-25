@@ -14,6 +14,7 @@ body {
     bottom: 50px;
     display: flex;
     flex-direction: column;
+    width: 100%;
     height: 100%;
 }
 
@@ -31,7 +32,6 @@ body {
 a {
     outline: none;
     text-decoration: none;
-    color: #FFFFFF;
     transition: color 0.3s;
 }
 
@@ -48,13 +48,7 @@ a:hover {
 .index-background {
     height: 100%;
     background-size: contain;
-}
-
-.background {
-    margin: auto;
-    width: width: calc(250px + (500 - 250) * ((100vw - 500px) / (1920 - 500)));
-    padding: 20px;
-
+    margin: 50px 0px 0px
 }
 
 .btn-block {
@@ -66,6 +60,7 @@ a:hover {
     padding: 10px;
     font-size: 20px;
     cursor: pointer;
+    color: #FFFFFF;
 }
 
 .active-page {
@@ -80,10 +75,9 @@ a:hover {
 }
 
 .content {
-    flex: 1 0 auto;
     position: relative;
-    padding-bottom: 80px;
-    top: 10px;
+    margin-bottom: 120px;
+    overflow: auto;
 }
 
 .footer {
@@ -220,6 +214,7 @@ select {
 
 .input-file {
     display: flex;
+    align-items: end;
 }
 
 .input-file div:first-child > input {
@@ -230,6 +225,12 @@ select {
 
 .input-file div:first-child {
     width: 50%;
+}
+
+.input-file span:last-child {
+    width: 96%;
+    border-bottom: 1px solid gainsboro;
+    display: block;
 }
 
 .input-file div:nth-child(2) {
@@ -249,4 +250,91 @@ select {
     border-bottom: 1px solid rgb(170, 175, 208);
     color: #666591;
     font-weight: bold;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.burger {
+    display: none;
+}
+
+.burger_open {
+    display: block;
+}
+.nav {
+    display: flex;
+    gap: 16px;
+}
+
+.nav_open {
+    position: absolute;
+    top: 10vh;
+    left:50%;
+    transform:translate(-50%, 0%);
+    padding: 20px;
+    background: #fff;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.backdrop {
+    display: none;
+}
+
+.backdrop_open {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.btn-close {
+    display: none;
+    position: absolute;
+    top:10px;
+    right:10px;
+    cursor: pointer;
+}
+
+.name-field {
+    cursor: default;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+    .btn-close {
+        display: block;
+    }
+    .nav_open {
+        display: flex;
+    }
+    .backdrop_open {
+        display: block;
+    }
+
+    .burger {
+        display: block;
+        padding: 15px;
+        cursor: pointer;
+    }
+
+    .burger img {
+        height: 40px;
+        width: 40px;
+        color: #FFFFFF;
+    }
+
+    .backdrop {
+        display: block;
+    }
+    .nav_open .menu-btn{
+        color: #000000;
+    }
 }

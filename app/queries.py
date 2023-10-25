@@ -69,6 +69,7 @@ def delete_post(post_data: models.Posts) -> std_return:
         db.session.delete(post)
         db.session.commit()
     except SQLAlchemyError as err:
+        db.session.rollback()
         logger.error(err)
         return err
 
